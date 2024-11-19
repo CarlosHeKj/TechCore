@@ -2,6 +2,6 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main><h1>TechCore</h1></main>
+    <div><h1>TechCore</h1></div>
   );
 }
