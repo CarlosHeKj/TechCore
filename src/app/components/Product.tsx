@@ -1,6 +1,6 @@
 import { ProductType } from "../../types/ProductType"
 import ProductImage from "./ProductImage";
-import { FiShoppingCart } from "react-icons/fi";
+import AddCart from "./AddCart";
 import { formatPrice } from "@/libs/utils";
 type ProductProps = {
     product: ProductType
@@ -25,9 +25,7 @@ export default function Product({product}: ProductProps) {
       <div className="text-green-600 font-bold">
         <p> {formatPrice(product.price)}</p>
       </div>
-      <button className="bg-gray-600 rounded-full text-green-600 p-3.5">
-      <FiShoppingCart className="text-xl " />
-      </button>
+      <AddCart product={product}/>
     </div>
   </div>
 </div>
