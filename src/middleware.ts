@@ -4,7 +4,7 @@ export default clerkMiddleware();
 
 export const config = {
 
-  publicRoutes: ['/'],
+  publicRoutes: ['/', '/product/(.*)'],
    
 
   matcher: [
