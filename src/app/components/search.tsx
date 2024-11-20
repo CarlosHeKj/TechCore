@@ -18,7 +18,7 @@ export default function SearchBar() {
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Pesquise o seu produto" id="search"  className=" rounded-sm w-1/2 md:w-full border-none text-black p-2 text-sm focus:outline-none"
+        placeholder="Pesquise o seu produto" id="search"  className=" rounded-sm  w-full border-none text-black p-2 text-sm focus:outline-none"
       />
       <button
         type="submit"
