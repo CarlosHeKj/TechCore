@@ -2,6 +2,7 @@ import { ProductType } from "../../types/ProductType"
 import ProductImage from "./ProductImage";
 import AddCart from "./AddCart";
 import { formatPrice } from "@/libs/utils";
+import Link from "next/link";
 type ProductProps = {
     product: ProductType
 }
@@ -9,6 +10,7 @@ type ProductProps = {
 export default function Product({product}: ProductProps) {
     
     return (
+      <Link href={`/product/${product.id}`}>
 <div className="flex flex-row md:flex-col h-auto md:h-92 shadow-lg bg-white rounded-md relative">
 
   <div className="relative h-32 w-24 md:w-full md:h-64 mt-20 md:mt-1">
@@ -29,6 +31,7 @@ export default function Product({product}: ProductProps) {
     </div>
   </div>
 </div>
+</Link>
 
-    )
+    );
 }
