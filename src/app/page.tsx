@@ -1,11 +1,13 @@
 
 import Stripe from "stripe";
 import Product from "./components/Product";
-
+import Image from "next/image";
+import banner from "@/app/assets/banner.png";
+import Link from "next/link";
 // Verifica se a variável de ambiente está configurada
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-10-28.acacia",
+  apiVersion: "2024-10-28.acacia", 
 });
 
 
@@ -52,6 +54,20 @@ export default async function Home() {
   }
 
   return (
+    
+    <div>
+      
+      <Link href={`/product`}>
+      <Image 
+    src={banner} // Importação direta da imagem
+    alt="banner promoção" 
+    layout="responsive" // Faz com que a largura e a altura sejam dinâmicas
+    width={1920} // Proporcional à largura da tela
+    height={600} // Proporcional à altura desejada
+    className="mt-8 w-full h-auto cursor-pointer" // Espaço entre a imagem e o texto
+  /> 
+  </Link>
+   
     <div className="max-w-7xl mx-auto pt-8 px-8 xl:px-0 bg-gray-900/20">
       <h1 className="font-bold text-2xl mt-20">Produtos abaixo de R$50,00</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 xl:gap-6">
@@ -72,6 +88,7 @@ export default async function Home() {
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 xl:gap-6">
         {ProductsList(10, 1000)}
       </div>
+    </div>
     </div>
   );
 }

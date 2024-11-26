@@ -5,7 +5,7 @@ import { ProductType } from "@/types/ProductType";
 type CartState = {
     cart: ProductType[];
     addProduct: (product: ProductType) => void;
-    //removeProduct: (product: ProductType) => void;
+    removeProduct: (product: ProductType) => void;
     isOpen: boolean;
     toggleCart: () => void;
 };
@@ -19,7 +19,7 @@ persist(
             if (product) { 
                 const updatedCart = state.cart.map((p)=>{
                     if(p.id === product.id){
-                        return {...p, quantity: p.quantity ? 1 : 1};
+                        return {...p, quantity: p.quantity ? p.quantity + 1 : 1};
                     }
                     return p;
                 });
@@ -28,6 +28,23 @@ persist(
                 return {
                     cart: [...state.cart, {...item, quantity: 1}] };
                 }
+            
+        }),
+        removeProduct: (item) => set((state) => {
+            const existingProduct = state.cart.find((p) => p.id === item.id);
+            if(existingProduct && existingProduct.quantity! > 1){
+                const updatedCart = state.cart.map((p)=>{
+                    if(p.id === item.id){
+                        return {...p, quantity: p.quantity! -1};
+                    }
+                    return p;
+                });
+                return {cart: updatedCart};
+            }else{
+                const filteredCart = state.cart.filter((p) => p.id !== item.id);
+                return {cart: filteredCart};
+            }
+           
             
         }),
         isOpen: false,
