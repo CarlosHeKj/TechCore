@@ -132,7 +132,9 @@ export default function Catalog() {
             <Product key={product.id} product={product} />
           ))
         ) : (
-          <p>Carregando produtos...</p>
+          <p className="text-center text-gray-700 col-span-full">
+            Produto não encontrado.
+          </p>
         )}
       </div>
     </div>
