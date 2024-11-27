@@ -4,21 +4,18 @@ import Link from "next/link";
 import Image from "next/image";
 import { SignedOut, SignedIn, SignInButton } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
-import { useRouter } from 'next/navigation'; // Importando useRouter para redirecionar
-import SearchBar from "./search"; // Certifique-se de que o componente SearchBar existe
+import { useRouter } from 'next/navigation'; 
+import SearchBar from "./search"; 
 import logo from "@/app/assets/logotech.png";
 import Cart from "./Cart";
 
 function Navbar() {
-  const router = useRouter(); // Instanciando o router para redirecionamento
+  const router = useRouter(); 
 
-  // Função que é chamada ao digitar algo na busca
   const handleSearch = (searchTerm: string) => {
     if (searchTerm.trim()) {
-      // Redireciona para a página de catalog com o termo de busca na URL
       router.push(`/catalog?search=${searchTerm}`);
     } else {
-      // Caso o termo de busca seja vazio, redireciona para o catálogo sem filtro
       router.push('/catalog');
     }
   };
@@ -35,7 +32,6 @@ function Navbar() {
         /> TechCore
       </Link>
 
-      {/* Passando a função handleSearch para o SearchBar */}
       <SearchBar onSearch={handleSearch} />
 
       <div className="flex items-center gap-8 md:gap-14">
