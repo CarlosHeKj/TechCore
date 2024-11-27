@@ -20,8 +20,8 @@ return fill ? (
  />
 ) : (
     <Image src={product.image}
-    width={500}
-    height={500}
+    width={400}
+    height={400}
     alt={product.name}
     className={`object-cover ${loading ? 'scale-110 blur-3xl grayscale' : 'scale-100 blur-0 grayscale-0'}`}
     onLoadingComplete={() => setLoading(false)}

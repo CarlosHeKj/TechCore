@@ -1,14 +1,14 @@
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import Product from "./Product";
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
-
+  const router = useRouter();
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
     console.log("Termo pesquisado:", searchTerm);
    
-    // Adicione aqui a lógica de busca, como chamar uma API ou filtrar uma lista.
+    router.push('/catalog');
   };
 
   return (

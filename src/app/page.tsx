@@ -6,11 +6,17 @@ import banner from "@/app/assets/banner.png";
 import Link from "next/link";
 // Verifica se a variável de ambiente está configurada
 
+
+
+if (!process.env.STRIPE_SECRET_KEY) {
+  throw new Error("STRIPE_SECRET_KEY não está definida");
+}
+
+console.log("STRIPE_SECRET_KEY:", process.env.STRIPE_SECRET_KEY);
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-10-28.acacia", 
+  apiVersion: "2024-10-28.acacia",
 });
-
-
 
 export async function getProducts() {
   const products = await stripe.products.list();
@@ -37,6 +43,7 @@ export async function getProducts() {
 // Componente principal
 export default async function Home() {
   // Busca os produtos
+  console.log("Iniciando requisição...");
   const products = await getProducts();
 
   // Função para filtrar e renderizar produtos
@@ -57,7 +64,7 @@ export default async function Home() {
     
     <div>
       
-      <Link href={`/product`}>
+      <Link href={`/catalog`}>
       <Image 
     src={banner} // Importação direta da imagem
     alt="banner promoção" 
