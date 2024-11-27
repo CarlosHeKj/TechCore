@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from 'next/navigation'; // Para capturar parâmetros da URL
+import { useSearchParams } from 'next/navigation'; 
 import Product from "../components/Product";
 
 async function getProducts() {
@@ -14,8 +14,8 @@ export default function Catalog() {
   const [products, setProducts] = useState<any[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
-  const searchParams = useSearchParams(); // Pegando parâmetros da URL
-  const searchTerm = searchParams?.get("search") || ''; // Pegando o parâmetro 'search'
+  const searchParams = useSearchParams(); 
+  const searchTerm = searchParams?.get("search") || ''; 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +31,7 @@ export default function Catalog() {
     fetchData();
   }, []);
 
-  // Função que filtra os produtos com base no termo de busca
+
   const applyFilters = () => {
     const filtered = products.filter((product) => {
       const matchesSearch = product.description
@@ -51,7 +51,7 @@ export default function Catalog() {
     setFilteredProducts(filtered);
   };
 
-  // Função chamada ao alterar os checkboxes
+
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
 
@@ -60,15 +60,14 @@ export default function Catalog() {
         ? [...prevFilters, value]
         : prevFilters.filter((filter) => filter !== value);
 
-      // Reaplica os filtros sempre que os filtros de checkbox são alterados
       applyFilters();
       return updatedFilters;
     });
   };
 
-  // Aplica o filtro de pesquisa sempre que o parâmetro 'search' mudar
+
   useEffect(() => {
-    // Reaplica os filtros sempre que o searchTerm mudar
+ 
     applyFilters();
   }, [searchTerm, selectedFilters, products]);
 

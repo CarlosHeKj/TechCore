@@ -12,7 +12,6 @@ if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error("STRIPE_SECRET_KEY não está definida");
 }
 
-console.log("STRIPE_SECRET_KEY:", process.env.STRIPE_SECRET_KEY);
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-10-28.acacia",
@@ -91,7 +90,9 @@ export default async function Home() {
         {ProductsList(100, 200)}
       </div>
 
-      <h1 className="font-bold text-2xl mt-20">Produtos diversos</h1>
+      <div className="flex justify-between"><h1 className="font-bold text-2xl mt-20">Produtos diversos</h1>
+      <Link href={`/catalog`}>
+      <h1 className="font-bold text-2xl mt-20 cursor-pointer">Ver mais</h1></Link></div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 xl:gap-6">
         {ProductsList(10, 1000)}
       </div>

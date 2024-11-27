@@ -16,7 +16,7 @@ export default function CartDrawer()
             className="fixed w-full h-screen bg-black/25 left-0 top-0 z-[9999]">
             <div 
             onClick={(e) => e.stopPropagation()}
-            className="absolute bg-slate-600 right-0 top-0 w-1/4 h-screen p-8 overflow-y-auto">
+            className="absolute bg-slate-600 right-0 top-0 w-full md:w-1/2  lg:w-1/3 h-screen p-8 overflow-y-auto lg:overflow-x-hidden">
 
                 <button onClick={() => useStore.toggleCart()} className="font-bold text-md text-purple-400">Voltar para loja</button>
                 <div className="border-t border-gray-400 my-4">
@@ -32,10 +32,10 @@ export default function CartDrawer()
                     alt={item.name}
                     width={120}
                     height={120}
-                    className="rounded-md object-cover w-24">
+                    className="rounded-md object-cover w-28">
                         
                         </Image>
-                        <div><h2 className="w-24 truncate md:w-80">{item.name}</h2>
+                        <div><h2 className="w-36 truncate md:w-80">{item.name}</h2>
                         <h2>Qtd: {item.quantity}</h2>
                         <p className="text-purple-400 font-bold text-md">{formatPrice(item.price)}</p>
                         <button className="py-1 px-2 border rounded-md mt-2 text-sm  mr-1" onClick={() => useStore.addProduct(item)}>Adicionar</button>
