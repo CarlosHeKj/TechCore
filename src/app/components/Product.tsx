@@ -25,7 +25,7 @@ export default function Product({product}: ProductProps) {
       {product.name}
     </div>
     
-    <div className="flex p-5 justify-between items-center relative">
+    <div   className="flex p-5 justify-between items-center relative">
       <div className="text-green-600 font-bold">
         <p> {formatPrice(product.price)}</p>
       </div>

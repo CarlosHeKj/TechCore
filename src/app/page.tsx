@@ -9,7 +9,7 @@ import Link from "next/link";
 
 
 async function getProducts() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"; // Substitua pelo domínio do seu app em produção
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"; 
   const res = await fetch(`${baseUrl}/api/products`);
   const data = await res.json();
   return data;
