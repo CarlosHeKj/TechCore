@@ -25,11 +25,12 @@ async function getProduct(id: string) {
   };
 }
 
-// Função de página que usa o 'params' de forma assíncrona
+// Função de página que usa 'params'
 export default async function ProductPage({ params }: { params: { id: string } }) {
-  // Aguarde o parâmetro 'id' de forma assíncrona
-  const { id } = await params; // Aqui é onde a correção é feita
+  // Aqui usamos 'await' para garantir que 'params' seja resolvido corretamente
+  const { id } = await params;  // Aguarde 'params' aqui
 
+  // Obtenha o produto
   const product = await getProduct(id);
 
   return (
