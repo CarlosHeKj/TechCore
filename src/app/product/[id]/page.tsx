@@ -3,49 +3,48 @@ import ProductImage from "@/app/components/ProductImage";
 import { formatPrice } from "@/libs/utils";
 import Stripe from "stripe";
 
-type ProductPageProps = {
-    params: {
-        id: string;
-     };
-};
+// Função para buscar um produto específico pela API (Stripe ou outro serviço)
+async function getProduct(id: string) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: "2024-10-28.acacia",
+  });
 
-async function getProduct(id:string)
-{
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-        apiVersion: "2024-10-28.acacia",
-      });
-      const produto = await stripe.products.retrieve(id);
-      const price = await stripe.prices.list({
-        product: produto.id,
-      });
-      
-      return {
-        id: produto.id,
-        price: price.data[0]?.unit_amount || 0,
-        name: produto.name,
-        description: produto.description || "",
-        image: produto.images[0] || "",
-        category: produto.metadata.category || "general",
-        currency: price.data[0]?.currency || "usd",
-      };
+  const produto = await stripe.products.retrieve(id);
+  const price = await stripe.prices.list({
+    product: produto.id,
+  });
+
+  return {
+    id: produto.id,
+    price: price.data[0]?.unit_amount || 0,
+    name: produto.name,
+    description: produto.description || "",
+    image: produto.images[0] || "",
+    category: produto.metadata.category || "general",
+    currency: price.data[0]?.currency || "usd",
+  };
 }
-export default  async function ProductPage({params: {id} }: ProductPageProps) {
-    const product = await getProduct(id);
 
-return <div className="flex flex-col md:flex-row items-center  max-w-[400px] h-auto
-md:max-w-5xl mx-auto gap-8 p-10 mt-20 justify-between bg-gray-900/20">
-    <ProductImage product={product}  />
-    <div className="flex flex-col ">
-        <div className="pb-4"><h1 className="text2xl font-bold text-white mb-16 ">{product.name}</h1>
-        <h2 className="text2xl font-bold text-gray-400 mb-20">{product.description}</h2>
+// Função de página que usa o 'params' de forma assíncrona
+export default async function ProductPage({ params }: { params: { id: string } }) {
+  // Aguarde o parâmetro 'id' de forma assíncrona
+  const { id } = await params; // Aqui é onde a correção é feita
+
+  const product = await getProduct(id);
+
+  return (
+    <div className="flex flex-col md:flex-row items-center max-w-[400px] h-auto md:max-w-5xl mx-auto gap-8 p-10 mt-20 justify-between bg-gray-900/20">
+      <ProductImage product={product} />
+      <div className="flex flex-col">
+        <div className="pb-4">
+          <h1 className="text-2xl font-bold text-white mb-16">{product.name}</h1>
+          <h2 className="text-2xl font-bold text-gray-400 mb-20">{product.description}</h2>
         </div>
         <div className="mt-2 flex justify-between">
-        <h2 className="text-xl text-purple-400 font-bold">{formatPrice(product.price)}</h2>
-        <AddCart product={product} />
+          <h2 className="text-xl text-purple-400 font-bold">{formatPrice(product.price)}</h2>
+          <AddCart product={product} />
         </div>
-       
-
+      </div>
     </div>
-</div>
-
+  );
 }

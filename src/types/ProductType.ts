@@ -5,7 +5,7 @@ export type ProductType = {
     quantity?: number | 1;
     image: string;
     category:string;
-    description: string | null;
+    description: string;
     currency?: string;
 }
    

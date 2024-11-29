@@ -1,5 +1,5 @@
-import {  SignUp } from "@clerk/nextjs"
-
+import { SignUp } from "@clerk/nextjs"
+import { Sign } from "crypto";
 
 type SignUpPageProps ={
     searchParams: {
@@ -12,7 +12,7 @@ export default function SignUpPage({searchParams: {redirectUrl} }: SignUpPagePro
         <section className="py-14">
             <div className="container mx-auto px-4">
            <div className="flex justify-center">
-           <SignUp signInUrl="/sign-in" redirectUrl={redirectUrl} />
+           <SignUp signInUrl="/sign-uin" fallbackRedirectUrl={redirectUrl} />
                 
                 
            </div>

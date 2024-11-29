@@ -1,43 +1,21 @@
 
-import Stripe from "stripe";
+
 import Product from "./components/Product";
 import Image from "next/image";
 import banner from "@/app/assets/banner.png";
 import Link from "next/link";
+
 // Verifica se a variável de ambiente está configurada
 
 
-
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error("STRIPE_SECRET_KEY não está definida");
+async function getProducts() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"; // Substitua pelo domínio do seu app em produção
+  const res = await fetch(`${baseUrl}/api/products`);
+  const data = await res.json();
+  return data;
 }
 
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-10-28.acacia",
-});
-
-export async function getProducts() {
-  const products = await stripe.products.list();
-  const formattedProducts = await Promise.all(
-    products.data.map(async (product) => {
-      const price = await stripe.prices.list({
-        product: product.id,
-        active: true,
-      });
-      return {
-        id: product.id,
-        price: price.data[0]?.unit_amount || 0,
-        name: product.name,
-        description: product.description || "",
-        image: product.images[0] || "",
-        category: product.metadata.category || "general",
-        currency: price.data[0]?.currency || "usd",
-      };
-    })
-  );
-  return formattedProducts;
-}
 
 // Componente principal
 export default async function Home() {

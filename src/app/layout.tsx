@@ -5,7 +5,6 @@ import Hydrate from "./components/Hydrate";
 import Navbar from "./components/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
-import Stripe from "stripe";
 
 // Carregar fontes personalizadas com next/font
 const geistSans = localFont({
