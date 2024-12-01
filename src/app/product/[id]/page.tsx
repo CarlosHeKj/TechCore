@@ -1,36 +1,23 @@
 import AddCart from "@/app/components/AddCart";
 import ProductImage from "@/app/components/ProductImage";
 import { formatPrice } from "@/libs/utils";
-import Stripe from "stripe";
 
-// Função para buscar um produto específico pela API (Stripe ou outro serviço)
+// Função para buscar um único produto da API
 async function getProduct(id: string) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: "2024-10-28.acacia",
-  });
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const res = await fetch(`${baseUrl}/api/products`);
+  const products = await res.json();
 
-  const produto = await stripe.products.retrieve(id);
-  const price = await stripe.prices.list({
-    product: produto.id,
-  });
-
-  return {
-    id: produto.id,
-    price: price.data[0]?.unit_amount || 0,
-    name: produto.name,
-    description: produto.description || "",
-    image: produto.images[0] || "",
-    category: produto.metadata.category || "general",
-    currency: price.data[0]?.currency || "usd",
-  };
+  const product = products.find((p: any) => p.id === id);
+  if (!product) {
+    throw new Error("Produto não encontrado");
+  }
+  return product;
 }
 
 // Função de página que usa 'params'
-export default async function ProductPage({ params }: { params: { id: string } }) {
-  // Aqui usamos 'await' para garantir que 'params' seja resolvido corretamente
-  const { id } = await params;  // Aguarde 'params' aqui
-
-  // Obtenha o produto
+export default async function ProductPage(props: any) {
+  const { id } = props.params as { id: string };
   const product = await getProduct(id);
 
   return (
@@ -39,10 +26,14 @@ export default async function ProductPage({ params }: { params: { id: string } }
       <div className="flex flex-col">
         <div className="pb-4">
           <h1 className="text-2xl font-bold text-white mb-16">{product.name}</h1>
-          <h2 className="text-2xl font-bold text-gray-400 mb-20">{product.description}</h2>
+          <h2 className="text-2xl font-bold text-gray-400 mb-20">
+            {product.description}
+          </h2>
         </div>
         <div className="mt-2 flex justify-between">
-          <h2 className="text-xl text-purple-400 font-bold">{formatPrice(product.price)}</h2>
+          <h2 className="text-xl text-purple-400 font-bold">
+            {formatPrice(product.price)}
+          </h2>
           <AddCart product={product} />
         </div>
       </div>

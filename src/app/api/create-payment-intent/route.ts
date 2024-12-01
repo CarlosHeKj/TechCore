@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/libs/stripe'; // Certifique-se de que esta importação está configurada corretamente
 import { auth } from '@clerk/nextjs/server'; // Para obter o 'userId' do Clerk
-import { ProductType } from '@/types/ProductType';
+import { ProductType } from 'src/types/ProductType';
 import prisma from '@/libs/prisma'
 
 

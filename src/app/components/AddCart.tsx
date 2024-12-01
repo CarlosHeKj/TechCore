@@ -1,7 +1,7 @@
 'use client';
 
 import { useCartStore } from "@/store";
-import { ProductType } from "@/types/ProductType";
+import { ProductType } from "src/types/ProductType";
 import { FiShoppingCart } from "react-icons/fi";
 
 export default function AddCart({ product }: { product: ProductType }) {
