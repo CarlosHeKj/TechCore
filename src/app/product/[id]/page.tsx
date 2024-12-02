@@ -1,6 +1,14 @@
+'use client'
+import React, { useEffect, useState } from "react";
 import AddCart from "@/app/components/AddCart";
 import ProductImage from "@/app/components/ProductImage";
 import { formatPrice } from "@/libs/utils";
+
+type ProductPageProps = {
+  params: Promise<{
+    id: string;
+  }>;
+};
 
 // Função para buscar um único produto da API
 async function getProduct(id: string) {
@@ -16,9 +24,45 @@ async function getProduct(id: string) {
 }
 
 // Função de página que usa 'params'
-export default async function ProductPage({ params }: { params: { id: string } }) {
-  const { id } = await params; // Aguarde a resolução de 'params'
-  const product = await getProduct(id); // Busca o produto pelo ID
+export default function ProductPage({ params }: ProductPageProps) {
+  const [product, setProduct] = useState<any>(null); // Estado para armazenar o produto
+  const [loading, setLoading] = useState(true); // Estado de carregamento
+  const [id, setId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Usando React.use() para "desembrulhar" a Promise
+    const fetchParams = async () => {
+      const resolvedParams = await params;
+      setId(resolvedParams.id); // Agora podemos acessar 'id' diretamente
+    };
+    
+    fetchParams();
+  }, [params]); // Reexecuta quando 'params' mudar
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchProduct = async () => {
+      try {
+        const fetchedProduct = await getProduct(id);
+        setProduct(fetchedProduct);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false); // Define o estado de carregamento como falso após a requisição
+      }
+    };
+
+    fetchProduct();
+  }, [id]); // Reexecuta quando 'id' mudar
+
+  if (loading) {
+    return <div>Carregando...</div>; // Mostra uma mensagem de carregamento enquanto busca o produto
+  }
+
+  if (!product) {
+    return <div>Produto não encontrado</div>;
+  }
 
   return (
     <div className="flex flex-col md:flex-row items-center max-w-[400px] h-auto md:max-w-5xl mx-auto gap-8 p-10 mt-20 justify-between bg-gray-900/20">
@@ -26,14 +70,10 @@ export default async function ProductPage({ params }: { params: { id: string } }
       <div className="flex flex-col">
         <div className="pb-4">
           <h1 className="text-2xl font-bold text-white mb-16">{product.name}</h1>
-          <h2 className="text-2xl font-bold text-gray-400 mb-20">
-            {product.description}
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-400 mb-20">{product.description}</h2>
         </div>
         <div className="mt-2 flex justify-between">
-          <h2 className="text-xl text-purple-400 font-bold">
-            {formatPrice(product.price)}
-          </h2>
+          <h2 className="text-xl text-purple-400 font-bold">{formatPrice(product.price)}</h2>
           <AddCart product={product} />
         </div>
       </div>
