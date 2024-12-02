@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     domains: ["files.stripe.com"],
   },
   
+  
 };
 
 
