@@ -1,18 +1,26 @@
 import { clerkMiddleware } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
-// Define que a função será executada no Edge
+// Configuração do Edge Runtime
 export const config = {
   runtime: 'experimental-edge', // 'experimental-edge' para funções Edge
-  publicRoutes: ['/', '/product/(.*)', '/sign-in(.*)', '/sign-up(.*)'],
   matcher: [
     '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    '/(api|trpc)(.*)',
+    '/(api|trpc)(.*)', // Incluir rotas da API
   ],
 };
 
-// Middleware com tipos explícitos para req e res
-export default function middleware(props: any){
-  // Chamando o Clerk Middleware diretamente e retornando o NextResponse
-  return clerkMiddleware(props);
-}
+// Middleware para Edge Functions
+export default clerkMiddleware(
+  (auth, request, event) => {
+    // Verifique se o usuário está autenticado usando 'auth.userId'
+    
+
+    // Se o usuário estiver autenticado, continua com o fluxo da requisição
+    return NextResponse.next();
+  },
+  {
+    // Aqui você pode passar as opções, se necessário
+    // Exemplo de opções: publicRoutes, etc.
+  }
+);
