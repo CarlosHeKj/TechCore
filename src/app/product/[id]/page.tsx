@@ -1,4 +1,5 @@
-'use client'
+"use client"; // Adicione isso no topo do arquivo
+
 import React, { useEffect, useState } from "react";
 import AddCart from "@/app/components/AddCart";
 import ProductImage from "@/app/components/ProductImage";
