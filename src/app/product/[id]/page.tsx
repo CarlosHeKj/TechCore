@@ -16,9 +16,9 @@ async function getProduct(id: string) {
 }
 
 // Função de página que usa 'params'
-export default async function ProductPage(props: any) {
-  const { id } = props.params as { id: string };
-  const product = await getProduct(id);
+export default async function ProductPage({ params }: { params: { id: string } }) {
+  const { id } = await params; // Aguarde a resolução de 'params'
+  const product = await getProduct(id); // Busca o produto pelo ID
 
   return (
     <div className="flex flex-col md:flex-row items-center max-w-[400px] h-auto md:max-w-5xl mx-auto gap-8 p-10 mt-20 justify-between bg-gray-900/20">
