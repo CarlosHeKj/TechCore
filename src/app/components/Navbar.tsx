@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { SignedOut, SignedIn, SignInButton } from "@clerk/nextjs";
+import { SignedOut, SignedIn, SignUpButton } from "@clerk/nextjs";
 import { UserButton } from "@clerk/nextjs";
 import { useRouter } from 'next/navigation'; 
 import SearchBar from "./search"; 
@@ -40,11 +40,11 @@ function Navbar() {
           <UserButton />
         </SignedIn>
         <SignedOut>
-          <SignInButton mode="modal">
+          <SignUpButton mode="modal">
             <button className="border rounded-md border-gray-400 px-3 py-2">
               <strong>Entrar</strong> ou <strong>Cadastrar</strong>
             </button>
-          </SignInButton>
+          </SignUpButton>
         </SignedOut>
       </div>
     </nav>

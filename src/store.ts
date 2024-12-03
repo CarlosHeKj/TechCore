@@ -6,6 +6,7 @@ type CartState = {
     cart: ProductType[];
     addProduct: (product: ProductType) => void;
     removeProduct: (product: ProductType) => void;
+    clearCart: () => void;
     isOpen: boolean;
     toggleCart: () => void;
     onCheckout: string;
@@ -50,7 +51,7 @@ persist(
             }
            
             
-        }),
+        }),clearCart: () => set({ cart: [] }),
         isOpen: false,
         toggleCart: (() => set((state) => ({isOpen: !state.isOpen}))),
         onCheckout: 'cart',
