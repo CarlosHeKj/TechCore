@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import AddCart from "@/app/components/AddCart";
 import ProductImage from "@/app/components/ProductImage";
 import { formatPrice } from "@/libs/utils";
+import { ProductType } from "src/types/ProductType";
 
 type ProductPageProps = {
   params: Promise<{
@@ -13,11 +14,13 @@ type ProductPageProps = {
 
 // Função para buscar um único produto da API
 async function getProduct(id: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const baseUrl =  process.env.NEXT_PUBLIC_BASE_URL  || "http://localhost:3000";
   const res = await fetch(`${baseUrl}/api/products`);
   const products = await res.json();
+  
 
-  const product = products.find((p: any) => p.id === id);
+  const product = products.find((p: ProductType) => p.id === id);
+  console.log("ID do produt0: " , product.id);
   if (!product) {
     throw new Error("Produto não encontrado");
   }
@@ -46,6 +49,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     const fetchProduct = async () => {
       try {
         const fetchedProduct = await getProduct(id);
+        console.log(product)
         setProduct(fetchedProduct);
       } catch (error) {
         console.error(error);
@@ -56,7 +60,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
     fetchProduct();
   }, [id]); // Reexecuta quando 'id' mudar
-
+  
   if (loading) {
     return <div>Carregando...</div>; // Mostra uma mensagem de carregamento enquanto busca o produto
   }
@@ -64,7 +68,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   if (!product) {
     return <div>Produto não encontrado</div>;
   }
-
+  
   return (
     <div className="flex flex-col md:flex-row items-center max-w-[400px] h-auto md:max-w-5xl mx-auto gap-8 p-10 mt-20 justify-between bg-gray-900/20">
       <ProductImage product={product} />

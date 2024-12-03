@@ -15,7 +15,7 @@ export default function Product({product}: ProductProps) {
       <Link href={`/product/${product.id}`}>
 <div className="flex flex-row md:flex-col h-auto shadow-lg bg-white rounded-md relative md:h-[400px] ">
 
-  <div className="relative h-32 w-24 md:w-full md:h-64 mt-20 md:mt-1 object-cover">
+  <div className="relative h-32 w-24 md:w-full md:h-64 mt-20 md:mt-1 object-cover md:flex md:justify-center">
     <ProductImage product={product}  />
   </div>
 

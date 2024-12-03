@@ -15,13 +15,13 @@ return fill ? (
     <Image src={product.image}
     fill
     alt={product.name}
-    className={`object-cover ${loading ? 'scale-0  grayscale' : 'blur-0 grayscale-0'}`}
+    className={`object-cover  ${loading ? 'scale-0  grayscale' : 'blur-0 grayscale-0'}`}
     onLoad={() => setLoading(false)}
  />
 ) : (
     <Image src={product.image}
-    width={400}
-    height={400}
+    width={250}
+    height={250}
     alt={product.name}
     className={`object-cover ${loading ? 'scale-110 blur-3xl grayscale' : ' blur-0 grayscale-0'}`}
     onLoadingComplete={() => setLoading(false)}
