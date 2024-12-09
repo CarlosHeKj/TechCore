@@ -72,12 +72,12 @@ export default function Catalog() {
   }, [searchTerm, selectedFilters, products]);
 
   return (
-    <div className="max-w-7xl mx-auto pt-8 px-8 xl:px-0 bg-gray-900/20">
+    <div className="max-w-7xl mx-auto pt-8 px-1 xl:px-0 bg-gray-900/20">
       <h1 className="font-bold text-2xl mt-20">Produtos</h1>
 
-      <form className="max-w-7xl mb-8 gap-2">
+      <form className="max-w-7xl mb-2 ">
         <div className="flex gap-4">
-          <label className="pr-4 font-bold text-lg">
+          <label className="pr-4 font-bold md:text-lg text-sm">
             <input
               type="checkbox"
               value="Todos"
@@ -86,7 +86,7 @@ export default function Catalog() {
             />
             Todos
           </label>
-          <label className="pr-4 font-bold text-lg">
+          <label className="pr-4 font-bold md:text-lg text-sm">
             <input
               type="checkbox"
               value="cpu"
@@ -95,7 +95,7 @@ export default function Catalog() {
             />
             CPU
           </label>
-          <label className="pr-4 font-bold text-lg">
+          <label className="pr-4 font-bold md:text-lg text-sm">
             <input
               type="checkbox"
               value="memória ram"
@@ -104,7 +104,7 @@ export default function Catalog() {
             />
             Memória RAM
           </label>
-          <label className="pr-4 font-bold text-lg">
+          <label className="pr-4 font-bold md:text-lg text-sm">
             <input
               type="checkbox"
               value="placa de vídeo"
@@ -113,7 +113,7 @@ export default function Catalog() {
             />
             Placa de Vídeo
           </label>
-          <label className="pr-4 font-bold text-lg">
+          <label className="pr-4 font-bold md:text-lg text-sm">
             <input
               type="checkbox"
               value="placa mãe"

@@ -70,15 +70,16 @@ export default function ProductPage({ params }: ProductPageProps) {
   }
   
   return (
-    <div className="flex flex-col md:flex-row items-center max-w-[400px] h-auto md:max-w-5xl mx-auto gap-8 p-10 mt-20 justify-between bg-gray-900/20">
+    <div className="flex flex-col md:flex-row items-center w-full h-auto md:max-w-5xl mx-auto gap-8 p-10 mt-20 justify-between bg-gray-900/20">
       <ProductImage product={product} />
       <div className="flex flex-col">
         <div className="pb-4">
-          <h1 className="text-2xl font-bold text-white mb-16">{product.name}</h1>
-          <h2 className="text-2xl font-bold text-gray-400 mb-20">{product.description}</h2>
+          <h1 className="text-2xl font-bold text-white mb-2 md:mb-16">{product.name}</h1>
+          <h2 className="text-sm md:text-2xl font-bold text-gray-400 mb-20">{product.description}</h2>
         </div>
         <div className="mt-2 flex justify-between">
-          <h2 className="text-xl text-purple-400 font-bold">{formatPrice(product.price)}</h2>
+          <h2 className="text-10px md:text-xl text-purple-400 font-bold">{formatPrice(product.price)}</h2>
+          
           <AddCart product={product} />
         </div>
       </div>
